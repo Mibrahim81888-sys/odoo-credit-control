@@ -1,0 +1,45 @@
+<odoo>
+    <record id="inherit_sale_credit_view_form" model="ir.ui.view">
+        <field name="name">res.partner.inherit.sale.credit.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="credit_limit"/>
+                <field name="use_credit_limit"/>
+                <field name="current_risk_amount"/>
+
+
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="inherit_sale_inv_move_view_form" model="ir.ui.view">
+        <field name="name">stock.picking.inherit.credit.form</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//header" position="inside">
+              <button name="%(action_open_credit_release_wizard)d" 
+              string = "Unblock" type="action" class="btn-warning"
+              invisible = "not is_credit_hold"
+              />
+            </xpath>
+
+            <xpath expr="//sheet" position="before">
+                <div class="alert alert-danger text-center" role="alert" invisible="not is_credit_hold">
+                    <strong>Alert : This authorization is credit-blocked because the customer has exceeded their permitted limit.</strong>
+                </div>
+
+            </xpath>
+
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="is_credit_hold" invisible="1"/>
+                <field name="credit_release_reason" invisible="not credit_release_reason"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

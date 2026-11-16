@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="credit_release_wizard_form">
+            <field name="name">Credit Release Wizard</field>
+            <field name="model">credit.release.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Credit Release Wizard">
+                    <sheet>
+                        <group>
+                            <field name="reason_accept"/>
+                           
+                        </group>
+                        
+                    </sheet>
+                    <footer>
+                            <button name="action_confirm_release" string="Accept" type="object" class="btn-primary"/>
+                            <button string="Cancel" special="cancel"/>
+                    
+
+                        </footer>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window"  id="action_open_credit_release_wizard">
+            <field name="name">Credit Release Wizard</field>
+            <field name="res_model">credit.release.wizard</field>
+            <field name="view_mode">form</field>
+            <field name= "target">new</field>
+              
+        </record>
+        
+    </data>
+</odoo>
